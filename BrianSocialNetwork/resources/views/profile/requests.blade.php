@@ -38,8 +38,15 @@
                 </div>
                 <div class="panel-body">
                     <div class="col-md-12">
+                      @if(session()->get('msg'))
+                        <div class="alert alert-success">
+                          <p>
+                            {{session()->get('msg')}}
+                          </p>
+                        </div>
+                      @endif
                       <div class="col-md-12 col-sm-12">
-                        @foreach($allUsers as $uList)
+                        @foreach($FriendRequests as $uList)
                         <div style="border-bottom:1px solid #ccc; margin-bottom:15px" class="row">
                           <div class="col-md-2 pull-left">
                             <img class="img-rounded" src="{{ url('../')}}/img/{{$uList->pic}}" width="80px" height="80px">
@@ -50,20 +57,16 @@
                                 {{ucwords($uList->name)}}
                               </a>
                             </h3>
-                            <p> Nairobi-Kenya</p>
-                            <p class="label label-default">{{$uList->about}}</p>
+                            <p><b>Gender: </b>{{$uList->gender}}</p>
+                            <p><b>Email: </b>{{$uList->email}}</p>
                           </div>
                           <div class="col-md-3 pull-right">
-                            <?php
-                                $check = DB::table('friendships')->where('user_requested','=',$uList->id)->where('requester','=',Auth::user()->id)->first();
-                                if ($check == '') {
-                              ?>
+
                               <p>
-                                <a href="{{url('/')}}/addFriend/{{$uList->id}}" class="btn btn-sm btn-success">Add Friend</a>
+                                <a href="{{url('/accept')}}/{{$uList->name}}/{{$uList->id}}" class="btn btn-sm btn-success">Confirm</a>
+
+                                <a href="{{url('/requestRemove')}}/{{$uList->id}}" class="btn btn-sm btn-danger">Reject</a>
                               </p>
-                              <?php  }else{ ?>
-                                <p class="label label-primary">Request already sent.</p>
-                              <?php } ?>
 
                           </div>
                         </div>

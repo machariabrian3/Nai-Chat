@@ -42,4 +42,11 @@ Route::group(['middleware'=>'auth'],function(){
 
   Route::get('/addFriend/{id}','ProfileController@sendRequest');
 
+  Route::get('/requests','ProfileController@requests');
+
+  Route::get('/accept/{name}/{id}','ProfileController@accept');
+
+  Route::get('/friends','ProfileController@friends');
+
+  Route::get('/requestRemove/{id}','ProfileController@requestRemove');
 });

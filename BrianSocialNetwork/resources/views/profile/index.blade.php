@@ -10,7 +10,7 @@
           </div>
           <div class="panel-body">
             <ul  class="list-group">
-              <a style="margin:1px;" href="#">
+              <a style="margin:1px;" href="/friends">
                 <li class="list-group-item">
                   My Friends
                 </li>
@@ -20,9 +20,9 @@
                   Find Friends
                 </li>
               </a>
-              <a style="margin:1px;" href="#">
+              <a style="margin:1px;" href="/requests">
                 <li class="list-group-item">
-                  Friend Requests
+                  Friend Requests ({{App\friendships::where('status',NULL)->where('user_requested',Auth::user()->id)->count()}})
                 </li>
               </a>
             </ul>
