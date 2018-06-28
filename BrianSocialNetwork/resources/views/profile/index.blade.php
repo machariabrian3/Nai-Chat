@@ -15,7 +15,7 @@
                   My Friends
                 </li>
               </a>
-              <a style="margin:1px;" href="#">
+              <a style="margin:1px;" href="/findFriends">
                 <li class="list-group-item">
                   Find Friends
                 </li>

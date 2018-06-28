@@ -42,4 +42,17 @@ class ProfileController extends Controller
             ->update(['about' => $about]);
       return back();
     }
+    public function findFriends()
+    {
+      $uid = Auth::user()->id;
+        $allUsers = DB::table('users')->where('id','!=' ,$uid)->get();
+
+        return view('profile.findFriends',compact('allUsers'));
+    }
+    public function sendRequest($id)
+    {
+
+      Auth::user()->addFriend($id);
+      return back();
+    }
 }
