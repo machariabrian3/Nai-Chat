@@ -5,14 +5,36 @@
 <div class="container">
     <div class="row">
       <div class="col-md-3">
-        <div class="panel panel-default">
+        <div class="panel panel-info">
           <div class="panel-heading">
-            Sidebar
+            {{ucwords(Auth::user()->name)}}
+          </div>
+          <div class="panel-body">
+            <div class="panel-body">
+              <ul class="list-group">
+                <a style="margin:1px;" href="#">
+                  <li class="list-group-item">
+                    My Friends
+                  </li>
+                </a>
+                <a style="margin:1px;" href="#">
+                  <li class="list-group-item">
+                    Find Friends
+                  </li>
+                </a>
+                <a style="margin:1px;" href="#">
+                  <li class="list-group-item">
+                    Friend Requests
+                  </li>
+                </a>
+
+              </ul>
+            </div>
           </div>
         </div>
       </div>
         <div class="col-md-9">
-            <div class="panel panel-default">
+            <div class="panel panel-info">
                 <div class="panel-heading">
                   {{Auth::user()->name}}
                   <!-- <a href="{{ url('editProfile') }}">
@@ -47,14 +69,17 @@
                       </div>
                       <div class="col-md-12">
                         <h4>Edit your about message</h4>
-                        <div class="input-group">
-                          <span class="input-group-addon" id="basic-addon1">#about</span>
-                          <input type="text" class="form-control" placeholder="About" name="" aria-describedby=" basic-addon1" value="{{Auth::user()->about}}">
-                        </div>
+                        <form class="form-group" action="{{url('/updateProfile')}}" method="post">
+                              <input type="hidden" name="_token" value="{{csrf_token()}}">
+                              <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon1">#about</span>
+                                <input type="text" class="form-control" placeholder="About" name="about" aria-describedby=" basic-addon1" value="{{Auth::user()->about}}">
+                              </div>
+                              <input style="margin:10px;" class="btn btn-success btn-sm pull-right" type="submit" name="submit" value="submit">
+                        </form>
                       </div>
-                      <div class="">
-                        <input style="margin:10px;" class="btn btn-success btn-sm pull-right" type="submit" name="" value="submit">
-                      </div>
+
+
 
                     </div>
                 </div>

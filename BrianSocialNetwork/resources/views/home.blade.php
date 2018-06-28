@@ -3,8 +3,35 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
+      <div class="col-md-3">
+        <div class="panel panel-info">
+          <div class="panel-heading">
+            Quick Links
+          </div>
+          <div class="panel-body">
+            <ul class="list-group">
+              <a style="margin:1px;" href="#">
+                <li class="list-group-item">
+                  My Friends
+                </li>
+              </a>
+              <a style="margin:1px;" href="#">
+                <li class="list-group-item">
+                  Find Friends
+                </li>
+              </a>
+              <a style="margin:1px;" href="#">
+                <li class="list-group-item">
+                  Friend Requests
+                </li>
+              </a>
+
+            </ul>
+          </div>
+        </div>
+      </div>
+        <div class="col-md-9">
+            <div class="panel panel-info">
                 <div class="panel-heading">Dashboard</div>
 
                 <div class="panel-body">

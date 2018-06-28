@@ -33,4 +33,13 @@ class ProfileController extends Controller
           return view('profile.editProfile')->with('data',Auth::user()->profile);
 
     }
+    public function updateProfile(Request $request)
+    {
+      $about = $request->input('about');
+      $user_id = Auth::user()->id;
+      DB::table('users')
+            ->where('id', $user_id)
+            ->update(['about' => $about]);
+      return back();
+    }
 }
