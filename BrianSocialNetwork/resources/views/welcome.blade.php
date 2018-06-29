@@ -72,7 +72,7 @@
             @if (Route::has('login'))
                 <div class="top-right links">
                     @if (Auth::check())
-                        <a href="{{ url('/home') }}">Home</a>
+                        <a href="{{ url('/home') }}">Dashboard</a>
                         <!-- <a href="{{ url('/profile')}}/{{ Auth::user()->slug }}">Profile</a> -->
                     @else
                         <a href="{{ url('/login') }}">Login</a>
@@ -82,17 +82,21 @@
             @endif
 
             <div class="container">
-              <div class="col-md-12" style="background:#fff;">
-                <div class="col-md-2 pull-left">
-                  <img src="http://127.0.0.1:8000/img/male2.png" class="img-rounded" alt="" style="width:100px;margin:10px;">
-                </div>
-                <div class="col-md-10">
-                  <h3>Name of user</h3>
-                  <p>Nairobi-Kenya</p>
-                </div>
-
-                <p class="col-md-12">Here we will update user status</p>
+              <div class="">
+                <h2>News Feeds</h2>
               </div>
+              @foreach($posts as $post)
+                <div class="thumbnail col-md-12">
+                  <div class="col-md-2 pull-left">
+                    <img src="{{ url('../')}}/img/{{$post->pic}}" class="img-rounded" alt="" style="width:80px;margin:10px;height:80px;">
+                  </div>
+                  <div class="col-md-10">
+                    <h3><a href="{{url('/profile')}}/{{$post->slug}}">{{ucwords($post->name)}}</a></h3>
+                    <p><i class="fa fa-globe"></i> Nairobi-Kenya</p>
+                    <p><i class="fa fa-comment"></i> {{$post->content}}</p>
+                  </div>
+                </div>
+              @endforeach
             </div>
         </div>
     </body>

@@ -58,12 +58,48 @@
                                                           ->count()}}
                               </span>
                             </a>
-                            <?php $note = DB::table('users')->leftJoin('notifications','users.id','notifications.user_logged')->where('user_hero',Auth::user()->id)->where('status',1)->orderBy('notifications.created_at','desc')->get(); ?>
+                            <?php
+                            $note = DB::table('users')
+                                      ->leftJoin('notifications','users.id','notifications.user_logged')
+                                      ->where('user_hero',Auth::user()->id)
+                                      //->where('status',1)
+                                      ->orderBy('notifications.created_at','desc')
+                                      ->get(); ?>
                             <ul class="dropdown-menu" role="menu">
                               @foreach($note as $notes)
-                              <li>
-                                 <a href="{{url('/notifications')}}/{{$notes->id}}"><img style="margin:5px;" src="{{ url('../')}}/img/{{$notes->pic}}" width="50px" height="50px" class="img-rounded"> <b style="color:green;"> {{ucwords($notes->name)}}</b> {{$notes->note}}</a>
+                              <a href="{{url('/notifications')}}/{{$notes->id}}">
+                                @if($notes->status == 1)
+                                  <li style="background:#E4E9F2;padding:10px;">
+                                @else
+                                  <li style="padding:10px;">
+                                @endif
+                                <div class="">
+
+                                    <img  style="background:#fff;" src="{{ url('../')}}/img/{{$notes->pic}}" width="50px" height="50px" class="img-rounded">
+
+                                    <b style="color:green;"> {{ucwords($notes->name)}}</b>
+                                    <span style="color:#000;">
+                                      {{$notes->note}}
+                                      <br>
+                                      <small style="margin-left:50px;position:relative;top:-20px;color:#90949C">
+                                        <i class="fa fa-clock"></i>
+                                        {{ date('F j,Y',strtotime($notes->created_at))}} at {{ date('H:i',strtotime($notes->created_at))}}
+                                      </small>
+                                    </span>
+
+
+                                </div>
+                              </a>
+                                <!-- @if($notes->status==1)
+                              <li style="background:#E4E9F2;padding:10px;"></li>
+                                @else
+                                <li style="padding:10px;">
+
+                                 <a href="{{url('/notifications')}}/{{$notes->id}}">
+                                   <img style="margin:5px;" src="{{ url('../')}}/img/{{$notes->pic}}" width="50px" height="50px" class="img-rounded">
+                                    <b style="color:green;"> {{ucwords($notes->name)}}</b> {{$notes->note}}</a>
                               </li>
+                              @endif -->
                               @endforeach
                             </ul>
                         </li>

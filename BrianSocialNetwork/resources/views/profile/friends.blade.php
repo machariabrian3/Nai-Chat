@@ -65,12 +65,9 @@
                             <p><b>Email: </b>{{$uList->email}}</p>
                           </div>
                           <div class="col-md-3 pull-right">
-
                               <p>
-
-                                <a href="" class="btn btn-sm btn-danger">UnFriend</a>
+                                <a href="{{url('/unfriend')}}/{{$uList->id}}" class="btn btn-sm btn-danger">UnFriend</a>
                               </p>
-
                           </div>
                         </div>
                         @endforeach

@@ -12,7 +12,11 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    $posts = DB::table('posts')
+              ->leftJoin('users','users.id','posts.user_id')
+              ->get();
+
+    return view('welcome',compact('posts'));
 });
 
 
@@ -49,4 +53,14 @@ Route::group(['middleware'=>'auth'],function(){
   Route::get('/requestRemove/{id}','ProfileController@requestRemove');
 
   Route::get('/notifications/{id}','ProfileController@notifications');
+
+  Route::get('/unfriend/{id}',function($id){
+    $loggedUser = Auth::user()->id;
+
+    DB::table('friendships')->where('requester',$loggedUser)->where('user_requested',$id)->delete();
+
+    return back()->with('msg','You just unfriended them');
+  });
 });
+
+Route::get('posts','HomeController@index');
