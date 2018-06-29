@@ -6,12 +6,17 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\User;
+use App\notifications;
 
 class ProfileController extends Controller
 {
     public function index($slug)
     {
-      return view('profile.index')->with('data',Auth::user()->profile);
+      $userData = DB::table('users')
+                    ->where('slug',$slug)
+                    ->get();
+
+      return view('profile.index',compact('userData'))->with('data',Auth::user()->profile);
     }
     public function uploadPhoto(Request $request)
     {
@@ -77,7 +82,14 @@ class ProfileController extends Controller
             ->where('requester',$id)
             ->update(['status' => 1]);
 
-            if ($updateFriendship) {
+        $notifications = new notifications;
+        $notifications->note = 'accepted your friend request';
+        $notifications->user_hero = $id;
+        $notifications->user_logged = Auth::user()->id;
+        $notifications->status = '1';
+        $notifications->save();
+
+            if ($notifications) {
               return back()->with('msg','You are now friends with '.$name);
             }
 
@@ -115,5 +127,22 @@ class ProfileController extends Controller
           ->where('requester',$id)
           ->delete();
       return back()->with('msg','Request cancelled');
+    }
+
+    public function notifications($id)
+    {
+      $uid = Auth::user()->id;
+      $notes = DB::table('notifications')
+                ->leftJoin('users','users.id','notifications.user_logged')
+                ->where('notifications.id',$id)
+                ->where('user_hero',$uid)
+                ->orderBy('notifications.created_at','desc')
+                ->get();
+
+      $updateNotification = DB::table('notifications')
+                          ->where('notifications.id',$id)
+                          ->update(['status' => 0]);
+
+      return view('profile.notifications',compact('notes'));
     }
 }

@@ -15,9 +15,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/test', function () {
-    return Auth::user()->test();
-});
+
 
 
 Auth::routes();
@@ -49,4 +47,6 @@ Route::group(['middleware'=>'auth'],function(){
   Route::get('/friends','ProfileController@friends');
 
   Route::get('/requestRemove/{id}','ProfileController@requestRemove');
+
+  Route::get('/notifications/{id}','ProfileController@notifications');
 });

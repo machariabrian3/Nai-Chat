@@ -46,7 +46,7 @@
                           </div>
                           <div class="col-md-7 pull-left">
                             <h3>
-                              <a href="#">
+                              <a href="{{url('/profile')}}/{{$uList->slug}}">
                                 {{ucwords($uList->name)}}
                               </a>
                             </h3>

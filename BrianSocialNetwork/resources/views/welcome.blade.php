@@ -9,6 +9,9 @@
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+
 
         <!-- Styles -->
         <style>
@@ -70,7 +73,7 @@
                 <div class="top-right links">
                     @if (Auth::check())
                         <a href="{{ url('/home') }}">Home</a>
-                        <a href="{{ url('/profile')}}/{{ Auth::user()->slug }}">Profile</a>
+                        <!-- <a href="{{ url('/profile')}}/{{ Auth::user()->slug }}">Profile</a> -->
                     @else
                         <a href="{{ url('/login') }}">Login</a>
                         <a href="{{ url('/register') }}">Register</a>
@@ -78,13 +81,18 @@
                 </div>
             @endif
 
-            <div class="content">
-                <div class="title m-b-md">
-                    Hello
+            <div class="container">
+              <div class="col-md-12" style="background:#fff;">
+                <div class="col-md-2 pull-left">
+                  <img src="http://127.0.0.1:8000/img/male2.png" class="img-rounded" alt="" style="width:100px;margin:10px;">
                 </div>
-                <div class="title m-b-md">
-                  Welcome To Nai-Chat.
+                <div class="col-md-10">
+                  <h3>Name of user</h3>
+                  <p>Nairobi-Kenya</p>
                 </div>
+
+                <p class="col-md-12">Here we will update user status</p>
+              </div>
             </div>
         </div>
     </body>

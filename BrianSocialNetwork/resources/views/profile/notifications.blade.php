@@ -14,7 +14,6 @@
                 <a style="margin:1px;" href="/friends">
                   <li class="list-group-item">
                     My Friends
-
                   </li>
                 </a>
                 <a style="margin:1px;" href="/findFriends">
@@ -24,10 +23,7 @@
                 </a>
                 <a style="margin:1px;" href="/requests">
                   <li class="list-group-item">
-                    Friend Requests
-                    <span style="color:green;font-weight:bold;font-size:16px;">
-                      ({{App\friendships::where('status',NULL)->where('user_requested',Auth::user()->id)->count()}})
-                    </span>
+                    Friend Requests ({{App\friendships::where('status',NULL)->where('user_requested',Auth::user()->id)->count()}})
                   </li>
                 </a>
               </ul>
@@ -38,7 +34,7 @@
         <div class="col-md-9">
             <div class="panel panel-info">
                 <div class="panel-heading">
-                  <h4 align="center"> {{Auth::user()->name}} Friends</h4>
+                  <h4 align="center">Notifications</h4>
                 </div>
                 <div class="panel-body">
                     <div class="col-md-12">
@@ -50,27 +46,13 @@
                         </div>
                       @endif
                       <div class="col-md-12 col-sm-12">
-                        @foreach($friends as $uList)
+                        @foreach($notes as $note)
                         <div style="border-bottom:1px solid #ccc; margin-bottom:15px" class="row">
-                          <div class="col-md-2 pull-left">
-                            <img class="img-rounded" src="{{ url('../')}}/img/{{$uList->pic}}" width="80px" height="80px">
-                          </div>
-                          <div class="col-md-7 pull-left">
-                            <h3>
-                              <a href="{{url('/profile')}}/{{$uList->slug}}">
-                                {{ucwords($uList->name)}}
-                              </a>
-                            </h3>
-                            <p><b>Gender: </b>{{$uList->gender}}</p>
-                            <p><b>Email: </b>{{$uList->email}}</p>
-                          </div>
-                          <div class="col-md-3 pull-right">
-
-                              <p>
-
-                                <a href="" class="btn btn-sm btn-danger">UnFriend</a>
-                              </p>
-
+                          <div class="list-group">
+                            <a href="{{url('/profile')}}/{{$note->slug}}" class="list-group-item">
+                              <h4 class="list-group-item-heading" style="color:green;">{{ucwords($note->name)}}</h4>
+                              <p class="list-group-item-text">{{$note->note}}</p>
+                            </a>
                           </div>
                         </div>
                         @endforeach

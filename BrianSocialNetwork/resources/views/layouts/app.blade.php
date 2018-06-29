@@ -12,6 +12,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
 </head>
 <body>
     <div id="app">
@@ -48,16 +49,29 @@
                             <li><a href="{{ route('login') }}">Login</a></li>
                             <li><a href="{{ route('register') }}">Register</a></li>
                         @else
-                        <li>
-                          <a href="#">
-                            <img style="border-radius:50%;" src="{{ url('../')}}/img/{{Auth::user()->pic}}" width="20px" height="20px" class="img-responsive">
-                          </a>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                              <i class="fas fa-bell"></i>
+                              <span class="badge" style="background:red;position:relative;top:-10px;left:-10px;">
+                                {{App\notifications::where('status',1)
+                                                          ->where('user_hero',Auth::user()->id)
+                                                          ->count()}}
+                              </span>
+                            </a>
+                            <?php $note = DB::table('users')->leftJoin('notifications','users.id','notifications.user_logged')->where('user_hero',Auth::user()->id)->where('status',1)->orderBy('notifications.created_at','desc')->get(); ?>
+                            <ul class="dropdown-menu" role="menu">
+                              @foreach($note as $notes)
+                              <li>
+                                 <a href="{{url('/notifications')}}/{{$notes->id}}"><img style="margin:5px;" src="{{ url('../')}}/img/{{$notes->pic}}" width="50px" height="50px" class="img-rounded"> <b style="color:green;"> {{ucwords($notes->name)}}</b> {{$notes->note}}</a>
+                              </li>
+                              @endforeach
+                            </ul>
                         </li>
 
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                  {{ ucwords(Auth::user()->name) }}
-                                     <span class="caret"></span>
+                                  <img src="{{ url('../')}}/img/{{Auth::user()->pic}}" width="20px" height="20px" class="img-circle">
+                                  <span class="caret"></span>
                                 </a>
 
                                 <ul class="dropdown-menu" role="menu">
@@ -82,6 +96,7 @@
 
                                 </ul>
                             </li>
+
                         @endif
                     </ul>
                 </div>

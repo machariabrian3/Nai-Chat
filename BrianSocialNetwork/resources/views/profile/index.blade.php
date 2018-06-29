@@ -30,23 +30,25 @@
         </div>
 
       </div>
+      @foreach($userData as $uData)
         <div class="col-md-9">
             <div class="panel panel-info">
                 <div class="panel-heading">
-                  {{ucwords(Auth::user()->name)}}
+                  {{ucwords($uData->name)}}
+                  @if($uData->id == Auth::user()->id)
                   <a href="{{ url('editProfile') }}">
                     <button type="button" name="edit" class="pull-right btn btn-success btn-sm">
                       Edit Profile
                     </button>
                   </a>
-
+                  @endif
                 </div>
                 <div class="panel-body">
 
                     <div class="col-md-6 ">
                       <div class="thumbnail">
-                        <h3 align="center">{{ucwords(Auth::user()->name)}}</h3>
-                        <img class="img-circle" src="{{ url('../')}}/img/{{Auth::user()->pic}}" width="80px" height="80px"><br>
+                        <h3 align="center">{{ucwords($uData->name)}}</h3>
+                        <img class="img-circle" src="{{ url('../')}}/img/{{$uData->pic}}" width="80px" height="80px"><br>
                         <div class="caption" align="center">
                           <p>Nairobi - Kenya</p>
 
@@ -57,12 +59,13 @@
                       <h4>
                         <span class="label label-default">About</span>
                       </h4>
-                      <p>{{Auth::user()->about}}</p>
+                      <p>{{$uData->about}}</p>
                     </div>
 
                 </div>
             </div>
         </div>
+      @endforeach
     </div>
 </div>
 @endsection
